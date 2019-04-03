@@ -54,7 +54,7 @@ fn permute(perm: &Vec<u8>, input: &Vec<u8>) -> Vec<u8> {
         // shift left 1 bit
         new_byte <<= 1;
         
-        // check if bit is 1 ( ? some reason == 1 never happens)
+        // check if bit is 1
         if input[byte_num as usize] & (1 << bit_num) != 0 {
             new_byte ^= 0b0000_0001;
         }
