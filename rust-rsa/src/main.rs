@@ -68,6 +68,41 @@ fn permute(perm: &Vec<u8>, input: &Vec<u8>) -> Vec<u8> {
     return output;
 }
 
+fn vec8_to_bitstring(input: &Vec<u8>) -> String {
+
+    let mut output: String = String::new();
+    for byte_num in 0..input.len() {
+        for bit_num in (0..8).rev() {
+            if input[byte_num as usize] & (1 << bit_num) != 0 {
+                output.push('1');                
+            }
+            else{
+                output.push('0');
+            }
+        }
+    }
+    return output;
+}
+
+fn bitstring_to_vec8(input: &String) -> Vec<u8> {
+    let mut bytes: Vec<u8> = Vec::new();
+    let mut byte: u8 = 0b0000_0000;
+
+    for (i,c) in input.chars().enumerate() {
+       
+       byte <<= 1; 
+       if c == '1' {
+         byte ^= 0b0000_0001;
+       }
+
+       if (i +1) % 8 == 0 {
+           bytes.push(byte);
+           byte = 0b0000_0000;
+       }
+    }
+    return bytes;
+}
+
 fn print_bits(input: &Vec<u8>) {
     for i in 0..input.len() {
         print!("{:08b}", input[i]);
